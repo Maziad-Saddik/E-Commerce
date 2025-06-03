@@ -1,10 +1,10 @@
-﻿using Anis.TransactionsDateManagement.Commands.Domain.Events;
+﻿using E_Commerce.Domain.Events;
 
 namespace E_Commerce.Domain.Interfaces;
 
 public interface IAggregate
 {
-    TransactionId Id { get; }
+    string Id { get; }
     int Sequence { get; }
     IReadOnlyList<Event> GetUncommittedEvents();
     void MarkChangesAsCommitted();

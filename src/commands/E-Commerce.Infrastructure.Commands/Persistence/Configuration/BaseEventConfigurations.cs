@@ -1,4 +1,4 @@
-﻿using Anis.UnregisteredAccountsTransactions.Commands.Domain.Events;
+﻿using E_Commerce.Domain.Events;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
