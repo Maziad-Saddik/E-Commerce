@@ -16,6 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\E-Commerce.Commands.Test\E-Commerce.Commands.Test.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="Xunit" />
   </ItemGroup>
 

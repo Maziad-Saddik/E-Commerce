@@ -16,6 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\src\queries\E-Commerce.Grpc.Queries\E-Commerce.Grpc.Queries.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="Xunit" />
   </ItemGroup>
 

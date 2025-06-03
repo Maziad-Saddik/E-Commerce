@@ -13,4 +13,8 @@
     <Folder Include="Services\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\E-Commerce.Domain.Commands\E-Commerce.Domain.Commands.csproj" />
+  </ItemGroup>
+
 </Project>

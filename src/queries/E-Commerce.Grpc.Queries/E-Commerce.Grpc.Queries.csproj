@@ -14,4 +14,8 @@
     <PackageReference Include="Grpc.AspNetCore" Version="2.64.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\E-Commerce.Infrastructure.Queries\E-Commerce.Infrastructure.Queries.csproj" />
+  </ItemGroup>
+
 </Project>
