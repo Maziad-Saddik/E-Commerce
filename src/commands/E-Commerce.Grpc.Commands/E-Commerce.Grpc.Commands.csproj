@@ -25,4 +25,8 @@
     <ProjectReference Include="..\E-Commerce.Infrastructure.Commands\E-Commerce.Infrastructure.Commands.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Validation\" />
+  </ItemGroup>
+
 </Project>
