@@ -1,4 +1,6 @@
-﻿namespace E_Commerce.Infrastructure.Entities;
+﻿using E_Commerce.Domain.Events;
+
+namespace E_Commerce.Infrastructure.Entities;
 
 public class OutboxMessageEntity
 {
