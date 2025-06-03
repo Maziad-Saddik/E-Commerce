@@ -1,7 +1,7 @@
 using E_Commerce.Applications.Queries;
 using Grpc.Core;
 
-namespace E_Commerce.Applications.Queries.Services
+namespace Services
 {
     public class GreeterService : Greeter.GreeterBase
     {

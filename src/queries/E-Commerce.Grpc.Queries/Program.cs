@@ -1,4 +1,4 @@
-using E_Commerce.Applications.Queries.Services;
+using Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

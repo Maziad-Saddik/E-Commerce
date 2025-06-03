@@ -8,11 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\" />
-    <Folder Include="Aggregates\" />
-    <Folder Include="Interfaces\" />
+    <Folder Include="Events\" />
     <Folder Include="Services\" />
-    <Folder Include="ValueObjects\" />
   </ItemGroup>
 
 </Project>

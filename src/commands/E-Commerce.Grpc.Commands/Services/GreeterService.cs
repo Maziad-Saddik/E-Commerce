@@ -1,7 +1,7 @@
 using E_Commerce.Grpc;
 using Grpc.Core;
 
-namespace E_Commerce.Grpc.Services
+namespace Services
 {
     public class GreeterService : Greeter.GreeterBase
     {

@@ -1,4 +1,4 @@
-using E_Commerce.Grpc.Services;
+using Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
