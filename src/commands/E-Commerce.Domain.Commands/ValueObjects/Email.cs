@@ -1,5 +1,4 @@
-﻿using Anis.TransactionsDateManagement.Commands.Domain;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 
 namespace E_Commerce.Domain.ValueObjects

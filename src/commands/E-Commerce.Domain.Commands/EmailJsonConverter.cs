@@ -2,7 +2,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Anis.TransactionsDateManagement.Commands.Domain
+namespace E_Commerce.Domain
 {
     public class EmailJsonConverter : JsonConverter<Email>
     {
