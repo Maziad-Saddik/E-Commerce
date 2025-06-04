@@ -27,6 +27,7 @@ namespace E_Commerce.Domain.Aggregates
             switch (@event)
             {
                 case OrderPlaced e: Mutate(e); break;
+                case OrderCanceled e: Mutate(e); break;
                 default:
                     throw new AppException(ExceptionStatusCode.FailedPrecondition, $"Unhandled event type: {@event.GetType().Name}"
                 );
@@ -35,7 +36,12 @@ namespace E_Commerce.Domain.Aggregates
 
         protected void Mutate(OrderPlaced @event)
         {
+            _status = OrderStatus.Pending;
+        }
 
+        protected void Mutate(OrderCanceled @event)
+        {
+            _status = OrderStatus.Cancelled;
         }
     }
 }

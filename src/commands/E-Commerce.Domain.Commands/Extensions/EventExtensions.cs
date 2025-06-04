@@ -1,4 +1,5 @@
 ﻿using E_Commerce.Domain.Commands;
+using E_Commerce.Domain.Constants;
 using E_Commerce.Domain.Events;
 using E_Commerce.Domain.Events.Data;
 
@@ -6,7 +7,7 @@ namespace E_Commerce.Domain.Extensions
 {
     public static class EventExtensions
     {
-        public static OrderPlaced ToOrderPlaced(this PlaceOrderCommand Command) => new()
+        public static OrderPlaced ToOrderPlaced(this PlaceOrderCommand Command, OrderStatus orderStatus = OrderStatus.Pending) => new()
         {
             AggregateId = Command.OrderId,
             Sequence = 1,
@@ -17,6 +18,7 @@ namespace E_Commerce.Domain.Extensions
             {
                 Customer = Command.Customer,
                 OrderItems = Command.OrderItems,
+                OrderStatus = orderStatus,
             }
         };
 

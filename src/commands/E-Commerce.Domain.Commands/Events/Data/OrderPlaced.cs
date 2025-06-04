@@ -9,6 +9,6 @@ namespace E_Commerce.Domain.Events.Data
 
         public required List<OrderItem> OrderItems { get; init; } = [];
 
-        public OrderStatus OrderStatus { get; init; }
+        public required OrderStatus OrderStatus { get; init; }
     }
 }
