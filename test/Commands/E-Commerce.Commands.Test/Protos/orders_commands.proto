@@ -1,0 +1,42 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "E_Commerce.Commands.Test.Protos";
+
+package orders_commands.v1;
+
+service OrdersCommands {
+  rpc PlaceOrder (PlaceOrderRequest) returns (PlaceOrderResponse);
+  rpc CancelOrder (CancelOrderRequest) returns (CancelOrderResponse);
+}
+
+message PlaceOrderRequest {
+	string order_id = 1;
+    string user_id = 2;
+    repeated OrderItem order_items = 3;
+    Customer Customer = 4;
+}
+
+message PlaceOrderResponse {
+  string id = 1;
+}
+
+message OrderItem{
+    string product_refenence = 1;
+    int32 quantity = 2;
+    double price = 3;
+}
+
+message Customer{
+    string id = 1;
+    string name = 2;
+    string email = 3;
+}
+
+message CancelOrderRequest{
+    string order_id = 1;
+    string user_id = 2;
+}
+
+message CancelOrderResponse{
+  string id = 1;
+}
