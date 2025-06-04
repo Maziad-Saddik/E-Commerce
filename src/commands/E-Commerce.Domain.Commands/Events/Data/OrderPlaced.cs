@@ -5,5 +5,7 @@ namespace E_Commerce.Domain.Events.Data
     public class OrderPlacedData
     {
         public required Customer Customer { get; init; }
+
+        public required List<OrderItem> orderItems { get; init; } = [];
     }
 }

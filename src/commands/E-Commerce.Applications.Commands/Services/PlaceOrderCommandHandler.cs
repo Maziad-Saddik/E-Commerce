@@ -2,6 +2,7 @@
 using E_Commerce.Domain.Aggregates;
 using E_Commerce.Domain.Commands;
 using E_Commerce.Domain.Events;
+using E_Commerce.Domain.Exceptions;
 using MediatR;
 
 namespace E_Commerce.Applications.Services
@@ -15,7 +16,10 @@ namespace E_Commerce.Applications.Services
                 cancellationToken
             );
 
-            Order order = Order.LoadFromHistory(events);
+            if (events.Count > 0)
+                throw new AppException(ExceptionStatusCode.AlreadyExists, "Order Already Exists");
+
+            Order order = Order.Place(command);
 
             await eventStore.CommitAsync(order, cancellationToken);
 

@@ -1,7 +1,7 @@
 ﻿using Bogus;
 using E_Commerce.Commands.Test.Protos;
 
-namespace Anis.TransactionsDateManagement.Commands.Test.Fakers.RequestFaker
+namespace E_Commerce.Commands.Test.Faker.Requests
 {
     public class PlaceOrderRequestFaker : Faker<PlaceOrderRequest>
     {
