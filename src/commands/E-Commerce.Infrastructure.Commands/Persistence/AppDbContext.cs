@@ -1,4 +1,5 @@
 ﻿using E_Commerce.Domain.Events;
+using E_Commerce.Domain.Events.Data;
 using E_Commerce.Infrastructure.Entities;
 using E_Commerce.Infrastructure.Persistence.Configuration;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
 
         modelBuilder.ApplyConfiguration(new BaseEventConfigurations());
 
-        // modelBuilder.ApplyConfiguration(new GenericEventConfiguration<RegisterTransactionRequested, RegisterTransactionRequestedData>());
+        modelBuilder.ApplyConfiguration(new GenericEventConfiguration<OrderPlaced, OrderPlacedData>());
+
+        modelBuilder.ApplyConfiguration(new GenericEventConfiguration<OrderCanceled, object>());
     }
 }
