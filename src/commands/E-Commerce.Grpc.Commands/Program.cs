@@ -14,7 +14,7 @@ builder.Services.AddGrpc();
 
 builder.Services.InfrastructureRegister(builder.Configuration);
 
-builder.Services.MediatorRegister();
+builder.Services.MediatrRegister();
 
 //builder.Services.AddGrpcWithValidators();
 

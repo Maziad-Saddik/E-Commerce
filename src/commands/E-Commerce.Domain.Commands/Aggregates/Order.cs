@@ -29,6 +29,8 @@ namespace E_Commerce.Domain.Aggregates
 
         public void Cancel(CancelOrderCommand command)
         {
+            _stateMachine.Fire(OrderTrigger.Cancelled);
+
             ApplyNewChange(command.ToOrderCanceled());
         }
 
