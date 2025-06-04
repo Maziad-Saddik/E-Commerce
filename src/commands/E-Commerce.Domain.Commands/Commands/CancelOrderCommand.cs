@@ -1,8 +1,9 @@
-﻿using MediatR;
+﻿using E_Commerce.Domain.Interfaces;
+using MediatR;
 
 namespace E_Commerce.Domain.Commands
 {
-    public class CancelOrderCommand : IRequest<string>
+    public class CancelOrderCommand : IRequest<string>, ICommand
     {
         public required string OrderId { get; init; }
 

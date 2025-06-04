@@ -1,9 +1,10 @@
 ﻿using E_Commerce.Domain.Entities;
+using E_Commerce.Domain.Interfaces;
 using MediatR;
 
 namespace E_Commerce.Domain.Commands
 {
-    public class PlaceOrderCommand : IRequest<string>
+    public class PlaceOrderCommand : IRequest<string>, ICommand
     {
         public required string OrderId { get; init; }
 

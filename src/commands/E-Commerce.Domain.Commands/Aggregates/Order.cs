@@ -22,6 +22,9 @@ namespace E_Commerce.Domain.Aggregates
             return order;
         }
 
+        public void Cancel(CancelOrderCommand command)
+          => ApplyNewChange(command.ToOrderCanceled());
+
         protected override void Mutate(Event @event)
         {
             switch (@event)
