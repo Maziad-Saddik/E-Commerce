@@ -1,8 +1,7 @@
 ﻿namespace E_Commerce.Domain.Constants
 {
-    public enum OrderStatus
+    public enum OrderTrigger
     {
-        Pending,
         Confirmed,
         Shipped,
         Delivered,
