@@ -1,20 +1,24 @@
 using E_Commerce.Grpc;
+using Extensions;
 using Grpc.Core;
+using MediatR;
 
 namespace Services
 {
-    public class OrdersCommandService(ILogger<OrdersCommandService> logger) : OrdersCommands.OrdersCommandsBase
+    public class OrdersCommandService(IMediator mediator) : OrdersCommands.OrdersCommandsBase
     {
-        private readonly ILogger<OrdersCommandService> _logger = logger;
+        private readonly IMediator _mediator = mediator;
 
-        public override Task<CancelOrderResponse> CancelOrder(CancelOrderRequest request, ServerCallContext context)
-        {
-            return base.CancelOrder(request, context);
-        }
+        public override async Task<CancelOrderResponse> CancelOrder(CancelOrderRequest request, ServerCallContext context)
+            => new CancelOrderResponse
+            {
+                Id = await _mediator.Send(request.ToCommand(), context.CancellationToken)
+            };
 
-        public override Task<PlaceOrderResponse> PlaceOrder(PlaceOrderRequest request, ServerCallContext context)
-        {
-            return base.PlaceOrder(request, context);
-        }
+        public async override Task<PlaceOrderResponse> PlaceOrder(PlaceOrderRequest request, ServerCallContext context)
+            => new PlaceOrderResponse
+            {
+                Id = await _mediator.Send(request.ToCommand(), context.CancellationToken)
+            };
     }
 }
