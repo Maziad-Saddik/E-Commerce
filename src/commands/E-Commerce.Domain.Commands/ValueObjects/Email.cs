@@ -1,5 +1,5 @@
-﻿using System.Text.Json.Serialization;
-using System.Text.RegularExpressions;
+﻿using E_Commerce.Domain.Constants;
+using System.Text.Json.Serialization;
 
 namespace E_Commerce.Domain.ValueObjects
 {
@@ -12,9 +12,8 @@ namespace E_Commerce.Domain.ValueObjects
             if (string.IsNullOrWhiteSpace(value))
                 throw new ArgumentException("Email address cannot be null or empty.", nameof(value));
 
-            var emailRegex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
-            if (!emailRegex.IsMatch(value))
+            if (!Const.EmailRegex.IsMatch(value))
                 throw new ArgumentException($"'{value}' is not a valid email address format.", nameof(value));
 
             Value = value.ToLowerInvariant();

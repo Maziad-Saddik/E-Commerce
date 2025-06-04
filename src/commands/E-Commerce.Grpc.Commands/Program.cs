@@ -1,6 +1,7 @@
 using E_Commerce.Applications.Extensions;
 using E_Commerce.Infrastructure.Extensions;
 using E_Commerce.Infrastructure.Services.Logger;
+using Extensions;
 using Middleware;
 using Serilog;
 using Services;
@@ -9,14 +10,13 @@ Log.Logger = LoggerServiceBuilder.Build();
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddGrpc();
 
 builder.Services.InfrastructureRegister(builder.Configuration);
 
 builder.Services.MediatrRegister();
 
-//builder.Services.AddGrpcWithValidators();
+builder.Services.AddGrpcWithValidators();
 
 builder.Host.UseSerilog();
 

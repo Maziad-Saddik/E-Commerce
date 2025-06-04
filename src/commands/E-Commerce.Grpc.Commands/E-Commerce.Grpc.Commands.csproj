@@ -26,10 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Validation\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Protobuf Include="Protos\orders_commands.proto" GrpcServices="Server" />
   </ItemGroup>
 
