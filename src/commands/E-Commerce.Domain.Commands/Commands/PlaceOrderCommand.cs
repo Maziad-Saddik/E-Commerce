@@ -11,6 +11,6 @@ namespace E_Commerce.Domain.Commands
 
         public required Customer Customer { get; init; }
 
-        public required List<OrderItem> orderItems { get; init; } = [];
+        public required List<OrderItem> OrderItems { get; init; } = [];
     }
 }

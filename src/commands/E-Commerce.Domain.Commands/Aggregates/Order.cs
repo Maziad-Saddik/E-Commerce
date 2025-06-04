@@ -1,6 +1,8 @@
 ﻿using E_Commerce.Domain.Commands;
 using E_Commerce.Domain.Constants;
 using E_Commerce.Domain.Events;
+using E_Commerce.Domain.Exceptions;
+using E_Commerce.Domain.Extensions;
 using E_Commerce.Domain.Interfaces;
 
 namespace E_Commerce.Domain.Aggregates
@@ -13,12 +15,27 @@ namespace E_Commerce.Domain.Aggregates
 
         public static Order Place(PlaceOrderCommand command)
         {
-            return new Order();
+            Order order = new Order();
+
+            order.ApplyNewChange(command.ToOrderPlaced());
+
+            return order;
         }
 
         protected override void Mutate(Event @event)
         {
-            throw new NotImplementedException();
+            switch (@event)
+            {
+                case OrderPlaced e: Mutate(e); break;
+                default:
+                    throw new AppException(ExceptionStatusCode.FailedPrecondition, $"Unhandled event type: {@event.GetType().Name}"
+                );
+            }
+        }
+
+        protected void Mutate(OrderPlaced @event)
+        {
+
         }
     }
 }

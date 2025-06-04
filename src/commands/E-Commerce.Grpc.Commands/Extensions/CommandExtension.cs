@@ -15,7 +15,7 @@ public static class CommandExtension
            name: request.Customer.Name,
            email: new Email(request.Customer.Email)
         ),
-        orderItems = request.OrderItems.Select(x => E_Commerce.Domain.Entities.OrderItem.Add(
+        OrderItems = request.OrderItems.Select(x => E_Commerce.Domain.Entities.OrderItem.Add(
            productRef: x.ProductRefenence,
            quantity: x.Quantity,
            price: new Money((decimal)x.Price, x.Currency))

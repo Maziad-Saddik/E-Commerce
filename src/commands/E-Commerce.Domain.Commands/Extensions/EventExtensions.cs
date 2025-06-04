@@ -16,7 +16,7 @@ namespace E_Commerce.Domain.Extensions
             Data = new OrderPlacedData
             {
                 Customer = Command.Customer,
-                orderItems = Command.orderItems,
+                OrderItems = Command.OrderItems,
             }
         };
 
