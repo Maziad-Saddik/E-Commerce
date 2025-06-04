@@ -67,20 +67,45 @@ namespace E_Commerce.Commands.Test.Tests
 
 
         [Theory]
-        [InlineData("")]
+        [InlineData(" ", ValidGuid, ValidGuid, "Maziad", "amns@gmail.com", nameof(PlaceOrderRequest.OrderId))]
+        [InlineData(EmptyGuid, ValidGuid, ValidGuid, "Maziad", "amns@gmail.com", nameof(PlaceOrderRequest.OrderId))]
+        [InlineData(ValidGuid, " ", ValidGuid, "Maziad", "amns@gmail.com", nameof(PlaceOrderRequest.UserId))]
+        [InlineData(ValidGuid, EmptyGuid, ValidGuid, "Maziad", "amns@gmail.com", nameof(PlaceOrderRequest.UserId))]
+        [InlineData(ValidGuid, EmptyGuid, " ", "Maziad", "amns@gmail.com", nameof(PlaceOrderRequest.Customer.Id))]
+        [InlineData(ValidGuid, EmptyGuid, ValidGuid, " ", "amns@gmail.com", nameof(PlaceOrderRequest.Customer.Name))]
+        [InlineData(ValidGuid, EmptyGuid, ValidGuid, "Maziad", " ", nameof(PlaceOrderRequest.Customer.Email))]
+        [InlineData(ValidGuid, EmptyGuid, ValidGuid, "Maziad", "amnsgmail.com", nameof(PlaceOrderRequest.Customer.Email))]
         public async Task PlaceOrder_InvalidData_ThrowsInvalidArgument(
+            string orderId,
+            string userId,
+            string customerId,
+            string name,
+            string email,
            string errorPropertyName
         )
         {
+            var request = new PlaceOrderRequestFaker()
+                .RuleFor(x => x.OrderId, x => orderId)
+                .RuleFor(x => x.UserId, x => userId)
+                .RuleFor(x => x.Customer, x => new Customer
+                {
+                    Id = customerId,
+                    Name = name,
+                    Email = email,
+                });
+
             RpcException exception = await Assert.ThrowsAsync<RpcException>
-               (() => _grpcHelper.Send(x => x.PlaceOrderAsync(new Protos.PlaceOrderRequest())).ResponseAsync);
+               (() => _grpcHelper.Send(x => x.PlaceOrderAsync(request)).ResponseAsync);
 
             Assert.Equal(StatusCode.InvalidArgument, exception.StatusCode);
 
             Assert.Contains(
-              exception.GetValidationErrors(),
-              e => e.PropertyName.EndsWith(errorPropertyName)
+                exception.GetValidationErrors(),
+                e => e.PropertyName.EndsWith(errorPropertyName)
             );
         }
+
+        private const string ValidGuid = "4D5AE574-DE1A-41D6-853F-D666EAB4D1DD";
+        private const string EmptyGuid = "00000000-0000-0000-0000-000000000000";
     }
 }
