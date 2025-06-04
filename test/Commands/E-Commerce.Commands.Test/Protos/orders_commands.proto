@@ -24,6 +24,7 @@ message OrderItem{
     string product_refenence = 1;
     int32 quantity = 2;
     double price = 3;
+    string Currency = 4;
 }
 
 message Customer{

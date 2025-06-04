@@ -10,5 +10,10 @@ namespace E_Commerce.Domain.Constants
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
         };
+
+        public static readonly HashSet<string> SupportedCurrencies = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            "USD", "EUR", "JPY", "GBP", "CAD", "AUD", "CHF", "CNY", "SEK", "NZD", "EGP", "SAR"
+        };
     }
 }

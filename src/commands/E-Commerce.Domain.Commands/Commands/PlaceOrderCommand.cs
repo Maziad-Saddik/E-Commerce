@@ -10,5 +10,7 @@ namespace E_Commerce.Domain.Commands
         public required string UserId { get; init; }
 
         public required Customer Customer { get; init; }
+
+        public required List<OrderItem> orderItems { get; init; } = [];
     }
 }
