@@ -11,7 +11,7 @@ namespace E_Commerce.Domain.Aggregates
     public class Order : Aggregate<Order>, IAggregate
     {
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
-        private Order() { InitializeStateMachine(); }
+        private Order() => InitializeStateMachine();
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
 
         public OrderStatus _status { private get; set; }
@@ -29,8 +29,6 @@ namespace E_Commerce.Domain.Aggregates
 
         public void Cancel(CancelOrderCommand command)
         {
-            _stateMachine.Fire(OrderTrigger.Cancelled);
-
             ApplyNewChange(command.ToOrderCanceled());
         }
 
