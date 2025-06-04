@@ -1,9 +1,11 @@
 ﻿using E_Commerce.Domain.ValueObjects;
+using System.Text.Json.Serialization;
 
 namespace E_Commerce.Domain.Entities
 {
     public class OrderItem
     {
+        [JsonConstructor]
         private OrderItem(
             string productRef,
             int quantity,

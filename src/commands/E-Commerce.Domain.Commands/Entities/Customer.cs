@@ -1,9 +1,11 @@
 ﻿using E_Commerce.Domain.ValueObjects;
+using System.Text.Json.Serialization;
 
 namespace E_Commerce.Domain.Entities
 {
     public class Customer
     {
+        [JsonConstructor]
         private Customer(
             Guid id,
             string name,

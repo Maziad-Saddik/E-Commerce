@@ -1,5 +1,8 @@
 ﻿using Calzolari.Grpc.Net.Client.Validation;
+using E_Commerce.Commands.Test.Faker.Requests;
 using E_Commerce.Commands.Test.Helper;
+using E_Commerce.Commands.Test.Protos;
+using E_Commerce.Domain.Events;
 using E_Commerce.Infrastructure.Persistence;
 using Grpc.Core;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -39,6 +42,29 @@ namespace E_Commerce.Commands.Test.Tests
 
             Assert.True(canConnect, "Database connection failed.");
         }
+
+        [Fact]
+        public async Task PlaceOrder_WithValidData_SavesOrderPlaced()
+        {
+            PlaceOrderRequest request = new PlaceOrderRequestFaker();
+
+            request.OrderItems.Add(new OrderItem
+            {
+                ProductRefenence = Guid.NewGuid().ToString(),
+                Quantity = 1,
+                Price = 1000,
+                Currency = "USD"
+            });
+
+            PlaceOrderResponse response = await _grpcHelper.Send(x => x.PlaceOrderAsync(request).ResponseAsync);
+
+            List<Event> events = await _databaseHelper.GetAllAsync(request.OrderId);
+
+            Assert.Single(events);
+
+            AssertEquality.OfOrderPlaced(orderPlaced: events.Last(), request: request, response);
+        }
+
 
         [Theory]
         [InlineData("")]

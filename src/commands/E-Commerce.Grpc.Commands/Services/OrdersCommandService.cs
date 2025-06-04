@@ -10,13 +10,13 @@ namespace Services
         private readonly IMediator _mediator = mediator;
 
         public override async Task<CancelOrderResponse> CancelOrder(CancelOrderRequest request, ServerCallContext context)
-            => new CancelOrderResponse
+            => new()
             {
                 Id = await _mediator.Send(request.ToCommand(), context.CancellationToken)
             };
 
         public async override Task<PlaceOrderResponse> PlaceOrder(PlaceOrderRequest request, ServerCallContext context)
-            => new PlaceOrderResponse
+            => new()
             {
                 Id = await _mediator.Send(request.ToCommand(), context.CancellationToken)
             };
