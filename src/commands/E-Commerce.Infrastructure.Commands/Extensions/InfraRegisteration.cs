@@ -1,4 +1,5 @@
-﻿using E_Commerce.Infrastructure.Persistence;
+﻿using E_Commerce.Applications.Contracts;
+using E_Commerce.Infrastructure.Persistence;
 using E_Commerce.Infrastructure.Services.ServiceBus;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -13,7 +14,7 @@ namespace E_Commerce.Infrastructure.Extensions
             services.AddDbContext<AppDbContext>(
                 option => option.UseInMemoryDatabase(""));
 
-            //services.AddScoped<IEventStore, EventStore>();
+            services.AddScoped<IEventStore, EventStore>();
 
             services.AddSingleton<IServiceBusPublisher, ServiceBusPublisher>();
 
