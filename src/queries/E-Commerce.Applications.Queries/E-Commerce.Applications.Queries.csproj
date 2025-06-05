@@ -11,4 +11,10 @@
     <ProjectReference Include="..\E-Commerce.Domain.Queries\E-Commerce.Domain.Queries.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Contracts\" />
+    <Folder Include="Extensions\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>
