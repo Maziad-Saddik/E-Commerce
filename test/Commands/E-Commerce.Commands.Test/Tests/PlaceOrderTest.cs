@@ -67,24 +67,34 @@ namespace E_Commerce.Commands.Test.Tests
 
 
         [Theory]
-        [InlineData(" ", ValidGuid, ValidGuid, "Maziad", "amns@gmail.com", nameof(PlaceOrderRequest.OrderId))]
-        [InlineData(EmptyGuid, ValidGuid, ValidGuid, "Maziad", "amns@gmail.com", nameof(PlaceOrderRequest.OrderId))]
-        [InlineData(ValidGuid, " ", ValidGuid, "Maziad", "amns@gmail.com", nameof(PlaceOrderRequest.UserId))]
-        [InlineData(ValidGuid, EmptyGuid, ValidGuid, "Maziad", "amns@gmail.com", nameof(PlaceOrderRequest.UserId))]
-        [InlineData(ValidGuid, EmptyGuid, " ", "Maziad", "amns@gmail.com", nameof(PlaceOrderRequest.Customer.Id))]
-        [InlineData(ValidGuid, EmptyGuid, ValidGuid, " ", "amns@gmail.com", nameof(PlaceOrderRequest.Customer.Name))]
-        [InlineData(ValidGuid, EmptyGuid, ValidGuid, "Maziad", " ", nameof(PlaceOrderRequest.Customer.Email))]
-        [InlineData(ValidGuid, EmptyGuid, ValidGuid, "Maziad", "amnsgmail.com", nameof(PlaceOrderRequest.Customer.Email))]
+        [InlineData(" ", ValidGuid, ValidGuid, "Maziad", "amns@gmail.com", ValidGuid, 10, 1000, "USD", nameof(PlaceOrderRequest.OrderId))]
+        [InlineData(EmptyGuid, ValidGuid, ValidGuid, "Maziad", "amns@gmail.com", ValidGuid, 10, 1000, "USD", nameof(PlaceOrderRequest.OrderId))]
+        [InlineData(ValidGuid, " ", ValidGuid, "Maziad", "amns@gmail.com", ValidGuid, 10, 1000, "USD", nameof(PlaceOrderRequest.UserId))]
+        [InlineData(ValidGuid, EmptyGuid, ValidGuid, "Maziad", "amns@gmail.com", ValidGuid, 10, 1000, "USD", nameof(PlaceOrderRequest.UserId))]
+        [InlineData(ValidGuid, EmptyGuid, " ", "Maziad", "amns@gmail.com", ValidGuid, 10, 1000, "USD", nameof(PlaceOrderRequest.Customer.Id))]
+        [InlineData(ValidGuid, EmptyGuid, ValidGuid, " ", "amns@gmail.com", ValidGuid, 10, 1000, "USD", nameof(PlaceOrderRequest.Customer.Name))]
+        [InlineData(ValidGuid, EmptyGuid, ValidGuid, "Maziad", " ", ValidGuid, 10, 1000, "USD", nameof(PlaceOrderRequest.Customer.Email))]
+        [InlineData(ValidGuid, EmptyGuid, ValidGuid, "Maziad", "amnsgmail.com", ValidGuid, 10, 1000, "USD", nameof(PlaceOrderRequest.Customer.Email))]
+        [InlineData(ValidGuid, EmptyGuid, ValidGuid, "Maziad", "amnsgmail.com", " ", 10, 1000, "USD", nameof(OrderItem.ProductRefenence))]
+        [InlineData(ValidGuid, EmptyGuid, ValidGuid, "Maziad", "amnsgmail.com", EmptyGuid, 10, 1000, "USD", nameof(OrderItem.ProductRefenence))]
+        [InlineData(ValidGuid, EmptyGuid, ValidGuid, "Maziad", "amnsgmail.com", ValidGuid, -1, 1000, "USD", nameof(OrderItem.Quantity))]
+        [InlineData(ValidGuid, EmptyGuid, ValidGuid, "Maziad", "amnsgmail.com", ValidGuid, 4144, -1, "USD", nameof(OrderItem.Price))]
+        [InlineData(ValidGuid, EmptyGuid, ValidGuid, "Maziad", "amnsgmail.com", ValidGuid, 4144, 144, " ", nameof(OrderItem.Currency))]
+        [InlineData(ValidGuid, EmptyGuid, ValidGuid, "Maziad", "amnsgmail.com", ValidGuid, 4144, 144, "US", nameof(OrderItem.Currency))]
         public async Task PlaceOrder_InvalidData_ThrowsInvalidArgument(
             string orderId,
             string userId,
             string customerId,
             string name,
             string email,
+            string productRef,
+            int quantity,
+            double price,
+            string currency,
            string errorPropertyName
         )
         {
-            var request = new PlaceOrderRequestFaker()
+            PlaceOrderRequest request = new PlaceOrderRequestFaker()
                 .RuleFor(x => x.OrderId, x => orderId)
                 .RuleFor(x => x.UserId, x => userId)
                 .RuleFor(x => x.Customer, x => new Customer
@@ -93,6 +103,14 @@ namespace E_Commerce.Commands.Test.Tests
                     Name = name,
                     Email = email,
                 });
+
+            request.OrderItems.Add(new OrderItem
+            {
+                ProductRefenence = productRef,
+                Quantity = quantity,
+                Price = price,
+                Currency = currency,
+            });
 
             RpcException exception = await Assert.ThrowsAsync<RpcException>
                (() => _grpcHelper.Send(x => x.PlaceOrderAsync(request)).ResponseAsync);
